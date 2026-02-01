@@ -1,12 +1,24 @@
 import { Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { alertsMock } from '../data/alerts.mock';
+import { alertsMock } from '../data/DataContract';
+import type { Severity, AlertStatus } from '../data/DataContract';
+import { useEffect, useState } from 'react';
 
 const columns = [
   {
     title: 'Severity',
     dataIndex: 'severity',
     key: 'severity',
+    filters: [
+      { text: 'critical', value: 'critical' },
+      { text: 'high', value: 'high' },
+      { text: 'medium', value: 'medium' },
+      { text: 'low', value: 'low' },
+    ],
+    onFilter: (value: Severity, record: { severity: Severity }) =>
+      record.severity === value,
+    sorter: (a: { severity: string }, b: { severity: string }) =>
+      a.severity.localeCompare(b.severity),
   },
   {
     title: 'Title',
@@ -17,25 +29,44 @@ const columns = [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
+    filters: [
+      { text: 'open', value: 'open' },
+      { text: 'acknowledged', value: 'acknowledged' },
+      { text: 'all', value: 'all' },
+    ],
+    onFilter: (value: AlertStatus | 'all', record: { status: AlertStatus }) =>
+      value === 'all' ? true : record.status === value,
   },
   {
     title: 'Agent',
-    dataIndex: 'agent',
-    key: 'agent',
+    dataIndex: ['actor', 'agentName'],
+    key: 'agentName',
   },
   {
     title: 'Environment',
-    dataIndex: 'environment',
+    dataIndex: ['actor', 'environment'],
     key: 'environment',
   },
   {
-    title: 'Created Time',
-    dataIndex: 'createdTime',
-    key: 'createdTime',
+    title: 'Created At',
+    dataIndex: 'createdAt',
+    key: 'createdAt',
+    sorter: (a: { createdAt: string }, b: { createdAt: string }) =>
+      new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
   },
 ];
 
 function AlertsList() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const navigate = useNavigate();
   return (
     <div>
@@ -45,10 +76,14 @@ function AlertsList() {
         columns={columns}
         dataSource={alertsMock}
         pagination={false}
+        loading={loading}
+        locale={{
+          emptyText: 'No alerts match your filters',
+        }}
         onRow={(record) => {
           return {
             onClick: () => {
-              navigate(`/alerts/${record.key}`);
+              navigate(`/alerts/${record.id}`);
             },
           };
         }}

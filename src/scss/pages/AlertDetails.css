@@ -1,0 +1,9 @@
+.alert-details {
+  display: flex;
+}
+.alert-details__container {
+  background-color: lightgray;
+}
+.alert-details--not-found {
+  color: red;
+}
