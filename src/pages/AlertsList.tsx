@@ -4,7 +4,7 @@ import { alertsMock } from '../data/DataContract';
 import type { Severity, AlertStatus } from '../data/DataContract';
 import { useEffect, useState } from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
-
+import '../css/pages/AlertsList.css';
 const columns = [
   {
     title: 'Severity',
@@ -70,12 +70,14 @@ function AlertsList() {
 
   const navigate = useNavigate();
   return (
-    <div>
-      <h1>Alerts</h1>
-      <button onClick={() => navigate('/')}>
-        <IoIosArrowBack />
-        {'back'}
-      </button>
+    <div className="alerts-list">
+      <div className="alerts-list__header">
+        <button onClick={() => navigate('/')}>
+          <IoIosArrowBack />
+          {'back'}
+        </button>
+        <h1>Alerts</h1>
+      </div>
       <Table
         columns={columns}
         dataSource={alertsMock}
