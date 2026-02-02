@@ -16,8 +16,13 @@ const columns = [
       { text: 'medium', value: 'medium' },
       { text: 'low', value: 'low' },
     ],
-    onFilter: (value: Severity, record: { severity: Severity }) =>
-      record.severity === value,
+    onFilter: (
+      value: Severity,
+      record: {
+        id: string;
+        severity: Severity;
+      },
+    ) => record.severity === value,
     sorter: (a: { severity: string }, b: { severity: string }) =>
       a.severity.localeCompare(b.severity),
   },
