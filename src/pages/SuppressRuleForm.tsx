@@ -47,15 +47,15 @@ export function SuppressRuleForm({ alert }: Props) {
             { min: 3, max: 40, message: 'Must be 3–40 characters' },
           ]}
         >
-          <Input placeholder="e.g. Ignore deploy agent secrets" />
+          <Input placeholder="Ignore deploy agent secrets" />
         </Form.Item>
 
         <Form.Item label="Agent name" name="agentName">
-          <Input placeholder="e.g. deploy-agent-02 (leave empty for any)" />
+          <Input placeholder="deploy-agent-02 (leave empty for any)" />
         </Form.Item>
 
         <Form.Item label="Title contains" name="titleContains">
-          <Input placeholder="e.g. access production secrets (optional)" />
+          <Input placeholder="access production secrets (optional)" />
         </Form.Item>
 
         <Form.Item

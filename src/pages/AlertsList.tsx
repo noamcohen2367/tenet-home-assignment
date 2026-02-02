@@ -59,7 +59,7 @@ function AlertsList() {
       }
       // Search (case-insensitive on title + agentName)
       if (searchText) {
-        const query = searchText.toLowerCase();
+        const query = searchText.trim().toLowerCase();
         const matchesTitle = alert.title.toLowerCase().includes(query);
         const matchesAgent = alert.actor.agentName
           .toLowerCase()
@@ -129,7 +129,7 @@ function AlertsList() {
     },
   ];
 
-  // --- States ---
+  // States
   if (pageStatus === 'error') {
     return (
       <div className="alerts-list">
