@@ -12,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/alerts" element={<AlertsList />} />
         <Route path="/alerts/:id" element={<AlertDetails />} />
+        <Route path="*" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );

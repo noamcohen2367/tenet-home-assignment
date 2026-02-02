@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { alertsMock } from '../data/DataContract';
+import { alertDetailsMock } from '../data/alertDetailsMock';
 import type { Severity, AlertStatus } from '../data/DataContract';
 import { useEffect, useState } from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
@@ -80,7 +80,7 @@ function AlertsList() {
       </div>
       <Table
         columns={columns}
-        dataSource={alertsMock}
+        dataSource={Object.values(alertDetailsMock)}
         pagination={false}
         loading={loading}
         locale={{
