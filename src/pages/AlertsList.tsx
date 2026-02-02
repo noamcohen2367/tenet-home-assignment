@@ -18,7 +18,7 @@ function AlertsList() {
     'loading',
   );
 
-  // Read filters from URL
+  // Read filters from url
   const searchText = searchParams.get('search') || '';
   const statusFilter = (searchParams.get('status') || 'all') as
     | AlertStatus
@@ -43,21 +43,21 @@ function AlertsList() {
     void load();
   }, []);
 
-  // Filter + search logic (separated from UI)
+  // Filter and search logic
   const filteredAlerts = useMemo(() => {
     return alerts.filter((alert) => {
-      // Severity filter (multi-select)
+      // Severity filter - multi-select
       if (
         severityFilter.length > 0 &&
         !severityFilter.includes(alert.severity)
       ) {
         return false;
       }
-      // Status filter (single-select)
+      // Status filter - single-select
       if (statusFilter !== 'all' && alert.status !== statusFilter) {
         return false;
       }
-      // Search (case-insensitive on title + agentName)
+      // Search : case-insensitive on title + agentName
       if (searchText) {
         const query = searchText.trim().toLowerCase();
         const matchesTitle = alert.title.toLowerCase().includes(query);
