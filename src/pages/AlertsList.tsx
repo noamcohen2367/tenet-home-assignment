@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { alertsMock } from '../data/DataContract';
 import type { Severity, AlertStatus } from '../data/DataContract';
 import { useEffect, useState } from 'react';
+import { IoIosArrowBack } from 'react-icons/io';
 
 const columns = [
   {
@@ -71,7 +72,10 @@ function AlertsList() {
   return (
     <div>
       <h1>Alerts</h1>
-      <button onClick={() => navigate('/')}>{'<- Back'}</button>
+      <button onClick={() => navigate('/')}>
+        <IoIosArrowBack />
+        {'back'}
+      </button>
       <Table
         columns={columns}
         dataSource={alertsMock}

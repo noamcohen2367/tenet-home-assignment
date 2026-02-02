@@ -1,15 +1,25 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { alertsMock } from '../data/DataContract';
+import { IoIosArrowBack } from 'react-icons/io';
+
 import '../scss/pages/AlertDetails.css';
 function AlertDetails() {
   const { id } = useParams<{ id: string }>();
   const alertData = alertsMock.find((alert) => alert.id === id);
+  const navigate = useNavigate();
   return (
     <div className="alert-details">
       {alertData ? (
         <>
           <div className="alert-details__container">
-            <h1 className="alert-details--title">Alert Details</h1>
+            <div className="alert-details--header">
+              <button onClick={() => navigate('/alerts')}>
+                <IoIosArrowBack />
+                {'back'}
+              </button>
+              <h1 className="alert-details--title">Alert Details</h1>
+            </div>
+
             <span className="alert-details--item">id: {id}</span>
             <span className="alert-details--item">
               Title: {alertData.title}

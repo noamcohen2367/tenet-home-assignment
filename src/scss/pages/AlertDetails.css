@@ -1,8 +1,23 @@
 .alert-details {
   display: flex;
+  flex-direction: column;
+}
+.alert-details--header {
+  display: flex;
+  flex-direction: row;
 }
 .alert-details__container {
-  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(231, 231, 231);
+  padding: 1rem;
+}
+.alert-details--title {
+  color: rgb(139, 139, 139);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgb(139, 139, 139);
+  gap: 0.75rem;
+  font-size: 1.3rem;
 }
 .alert-details--not-found {
   color: red;
