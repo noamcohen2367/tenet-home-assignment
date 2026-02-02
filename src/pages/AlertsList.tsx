@@ -1,11 +1,13 @@
 import { Table } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
 import { useNavigate } from 'react-router-dom';
 import { alertDetailsMock } from '../data/alertDetailsMock';
-import type { Severity, AlertStatus } from '../data/DataContract';
+import type { Severity, AlertStatus, AlertDetails } from '../data/DataContract';
 import { useEffect, useState } from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
 import '../css/pages/AlertsList.css';
-const columns = [
+
+const columns: ColumnsType<AlertDetails> = [
   {
     title: 'Severity',
     dataIndex: 'severity',
@@ -16,15 +18,8 @@ const columns = [
       { text: 'medium', value: 'medium' },
       { text: 'low', value: 'low' },
     ],
-    onFilter: (
-      value: Severity,
-      record: {
-        id: string;
-        severity: Severity;
-      },
-    ) => record.severity === value,
-    sorter: (a: { severity: string }, b: { severity: string }) =>
-      a.severity.localeCompare(b.severity),
+    onFilter: (value, record) => record.severity === (value as Severity),
+    sorter: (a, b) => a.severity.localeCompare(b.severity),
   },
   {
     title: 'Title',
@@ -40,8 +35,8 @@ const columns = [
       { text: 'acknowledged', value: 'acknowledged' },
       { text: 'all', value: 'all' },
     ],
-    onFilter: (value: AlertStatus | 'all', record: { status: AlertStatus }) =>
-      value === 'all' ? true : record.status === value,
+    onFilter: (value, record) =>
+      value === 'all' ? true : record.status === (value as AlertStatus),
   },
   {
     title: 'Agent',
@@ -57,7 +52,7 @@ const columns = [
     title: 'Created At',
     dataIndex: 'createdAt',
     key: 'createdAt',
-    sorter: (a: { createdAt: string }, b: { createdAt: string }) =>
+    sorter: (a, b) =>
       new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
   },
 ];
