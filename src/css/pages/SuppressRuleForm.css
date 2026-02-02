@@ -1,0 +1,7 @@
+.suppress-form pre {
+  background: #fafafa;
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 8px;
+  overflow: auto;
+}

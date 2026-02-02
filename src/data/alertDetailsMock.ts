@@ -33,7 +33,6 @@ export const alertDetailsMock: Record<string, AlertDetails> = {
       },
     ],
   },
-
   alrt_002: {
     id: 'alrt_002',
     title: 'Suspicious outbound request to unknown domain',
@@ -59,7 +58,6 @@ export const alertDetailsMock: Record<string, AlertDetails> = {
       },
     ],
   },
-
   alrt_003: {
     id: 'alrt_003',
     title: 'Repeated tool-call failures (possible prompt loop)',

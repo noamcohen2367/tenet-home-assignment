@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IoIosArrowBack } from 'react-icons/io';
+import { SuppressRuleForm } from '../pages/SuppressRuleForm';
 
 import type {
   AlertDetails as AlertDetailsType,
@@ -187,6 +188,7 @@ function AlertDetails() {
           </ul>
         )}
       </div>
+      <SuppressRuleForm alert={alertData} />
     </div>
   );
 }

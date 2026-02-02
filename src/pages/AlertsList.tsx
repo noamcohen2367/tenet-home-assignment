@@ -89,7 +89,7 @@ function AlertsList() {
         pagination={false}
         loading={loading}
         locale={{
-          emptyText: 'No alerts match your filters',
+          emptyText: 'No alerts found',
         }}
         onRow={(record) => {
           return {
