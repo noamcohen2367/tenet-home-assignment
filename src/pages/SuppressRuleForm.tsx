@@ -13,7 +13,9 @@ type Environment = 'dev' | 'staging' | 'prod';
 type FormValues = {
   ruleName: string;
   environment: Environment;
+  agentName: string;
   severityAtMost: Severity;
+  titleContains: string;
   expiresInDays: number;
 };
 
@@ -26,10 +28,13 @@ export function SuppressRuleForm({ alert }: Props) {
 
       <Form<FormValues>
         layout="vertical"
+        validateTrigger={['onChange', 'onBlur']}
         initialValues={{
           ruleName: `Suppress ${alert.actor.agentName}`,
-          environment: alert.actor.environment, // ✅ pre-fill from alert
-          severityAtMost: alert.severity, // ✅ pre-fill from alert
+          environment: alert.actor.environment,
+          agentName: alert.actor.agentName,
+          severityAtMost: alert.severity,
+          titleContains: '',
           expiresInDays: 30,
         }}
         onFinish={(values) => setSubmitted(values)}
@@ -43,6 +48,14 @@ export function SuppressRuleForm({ alert }: Props) {
           ]}
         >
           <Input placeholder="e.g. Ignore deploy agent secrets" />
+        </Form.Item>
+
+        <Form.Item label="Agent name" name="agentName">
+          <Input placeholder="e.g. deploy-agent-02 (leave empty for any)" />
+        </Form.Item>
+
+        <Form.Item label="Title contains" name="titleContains">
+          <Input placeholder="e.g. access production secrets (optional)" />
         </Form.Item>
 
         <Form.Item
@@ -98,9 +111,15 @@ export function SuppressRuleForm({ alert }: Props) {
       {submitted && (
         <>
           <Paragraph style={{ marginTop: 12 }}>
-            This rule will suppress {submitted.severityAtMost} and lower
-            severity alerts in {submitted.environment} for{' '}
-            {submitted.expiresInDays} days.
+            This rule will suppress <strong>{submitted.severityAtMost}</strong>{' '}
+            and lower severity alerts
+            {submitted.agentName
+              ? ` from agent ${submitted.agentName}`
+              : ''} in <strong>{submitted.environment}</strong> for{' '}
+            <strong>{submitted.expiresInDays}</strong> days.
+            {submitted.titleContains
+              ? ` Only alerts with "${submitted.titleContains}" in the title.`
+              : ''}
           </Paragraph>
 
           <Text strong>JSON Preview</Text>

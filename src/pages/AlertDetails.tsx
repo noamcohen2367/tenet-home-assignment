@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { IoIosArrowBack } from 'react-icons/io';
 import { SuppressRuleForm } from '../pages/SuppressRuleForm';
 
@@ -17,6 +17,7 @@ type PageStatus = 'loading' | 'ready' | 'error' | 'not_found';
 function AlertDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const severityClassMap: Record<Severity, string> = useMemo(
     () => ({
@@ -78,7 +79,7 @@ function AlertDetails() {
       <div className="alert-details">
         <div className="alert-details--not-found">Something went wrong.</div>
         <button onClick={load}>Retry</button>
-        <button onClick={() => navigate('/alerts')}>
+        <button onClick={() => navigate(`/alerts${location.search}`)}>
           <IoIosArrowBack /> back to alerts
         </button>
       </div>
@@ -89,7 +90,7 @@ function AlertDetails() {
     return (
       <div className="alert-details--not-found">
         <h2>Alert not found</h2>
-        <button onClick={() => navigate('/alerts')}>
+        <button onClick={() => navigate(`/alerts${location.search}`)}>
           <IoIosArrowBack /> back to alerts
         </button>
       </div>
@@ -101,7 +102,7 @@ function AlertDetails() {
   return (
     <div className="alert-details">
       <div className="alert-details--header">
-        <button onClick={() => navigate('/alerts')}>
+        <button onClick={() => navigate(`/alerts${location.search}`)}>
           <IoIosArrowBack />
           back
         </button>
@@ -155,7 +156,9 @@ function AlertDetails() {
           {alertData.actor.agentName} | {alertData.actor.environment}
         </h4>
 
-        <span className="alert-details__item">{alertData.createdAt}</span>
+        <span className="alert-details__item">
+          {new Date(alertData.createdAt).toLocaleString()}
+        </span>
       </div>
 
       {/* Evidence Items section */}

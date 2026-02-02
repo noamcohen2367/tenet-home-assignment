@@ -1,7 +1,11 @@
-import type { AlertDetails } from '../data/DataContract';
 import { alertDetailsMock } from '../data/alertDetailsMock';
-
+import type { AlertDetails, Alert } from '../data/DataContract';
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+export async function getAlerts(): Promise<Alert[]> {
+  await delay(250);
+  return Object.values(alertDetailsMock);
+}
 
 export async function getAlertDetails(id: string): Promise<AlertDetails> {
   await delay(250);

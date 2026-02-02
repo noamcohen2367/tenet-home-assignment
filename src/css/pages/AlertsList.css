@@ -1,6 +1,7 @@
-.alerts-list__header {
+.alerts-list__filters {
   display: flex;
-  flex-direction: row;
+  gap: 12px;
   align-items: center;
-  gap: 1rem;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 }
